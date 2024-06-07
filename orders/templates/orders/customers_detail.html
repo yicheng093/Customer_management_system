@@ -1,0 +1,21 @@
+{% extends "orders/base_generic.html" %}
+
+{% block content %}
+  <h1>顧客詳細資料</h1>
+  <p><strong>客戶編號:</strong> {{ customer.customernumber }}</p>
+  <p><strong>客戶名稱:</strong> {{ customer.customername }}</p>
+  <p><strong>聯絡人姓氏:</strong> {{ customer.contactlastname }}</p>
+  <p><strong>聯絡人名字:</strong> {{ customer.contactfirstname }}</p>
+  <p><strong>電話:</strong> {{ customer.phone }}</p>
+  <p><strong>地址1:</strong> {{ customer.addressline1 }}</p>
+  <p><strong>地址2:</strong> {{ customer.addressline2 }}</p>
+  <p><strong>城市:</strong> {{ customer.city }}</p>
+  <p><strong>州:</strong> {{ customer.state }}</p>
+  <p><strong>郵遞區號:</strong> {{ customer.postalcode }}</p>
+  <p><strong>國家:</strong> {{ customer.country }}</p>
+  <p><strong>銷售代表員工編號:</strong> {{ customer.salesrepemployeenumber }}</p>
+  <p><strong>信用額度:</strong> {{ customer.creditlimit }}</p>  
+  <a href="{% url 'customers-update' customer.pk %}">編輯</a> |
+  <a href="{% url 'customers-delete' customer.pk %}">刪除</a> |
+  <a href="{% url 'customers-list' %}">返回列表</a>
+{% endblock %}

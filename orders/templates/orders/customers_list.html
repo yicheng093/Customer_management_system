@@ -1,0 +1,64 @@
+<style>
+  .center{
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+    text-align: center;
+  }
+</style>
+
+<body>
+{% extends "orders/base_generic.html" %}
+
+{% block title %}顧客列表{% endblock %}
+
+{% block content %}
+  <div class="center"><h1>顧客列表</h1></div>
+  <a href="{% url 'customers-create' %}"><i class="bi bi-person-add" style="font-size: 24px;"></i></a>
+
+  <table>
+    {% comment %} 搜尋
+    <form method="GET" action="">
+      <input type="text" name="q" placeholder="Search customers">
+      <input type="submit" value="Search">
+    </form> 
+  {% endcomment %}
+    <thead>
+      <tr>
+        <th>客戶編號</th>
+        <th>客戶名稱</th>
+        <th>聯絡人姓氏</th>
+        <th>聯絡人名字</th>
+        <th>電話</th>
+        <th>城市</th>
+        <th>國家</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for customer in page_obj %}
+      {% comment %} 不同顏色 {% endcomment %}
+      {% cycle 'bg-light' 'bg-gray' as row_color silent %}
+      <tr class="{{ row_color }}">
+        <td>{{ customer.customernumber }}</td>
+        <td>{{ customer.customername }}</td>
+        <td>{{ customer.contactlastname }}</td>
+        <td>{{ customer.contactfirstname }}</td>
+        <td>{{ customer.phone }}</td>
+        <td>{{ customer.city }}</td>
+        <td>{{ customer.country }}</td>
+        <td>
+          <a href="{% url 'customers-detail' customer.pk %}">查看詳細</a> |
+          <a href="{% url 'customers-update' customer.pk %}">編輯</a> |
+          <a href="{% url 'customers-delete' customer.pk %}">刪除</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
+
+{% block pagination %}
+  {{ block.super }}
+{% endblock %}
+</body>

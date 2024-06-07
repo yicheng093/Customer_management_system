@@ -1,0 +1,18 @@
+{% extends "orders/base_generic.html" %}
+
+{% block title %}Employee Detail{% endblock %}
+
+{% block content %}
+  <h1>員工詳細資料</h1>
+  <p>員工編號: {{ employee.employeenumber }}</p>
+  <p>姓氏: {{ employee.lastname }}</p>
+  <p>名字: {{ employee.firstname }}</p>
+  <p>分機: {{ employee.extension }}</p>
+  <p>電子郵件: {{ employee.email }}</p>
+  <p>辦公室代碼: {{ employee.officecode }}</p>
+  <p>匯報對象: {{ employee.reportsto }}</p>
+  <p>職稱: {{ employee.jobtitle }}</p>
+  <a href="{% url 'employees-update' employee.pk %}">編輯</a>
+  <a href="{% url 'employees-delete' employee.pk %}">刪除</a>
+  <a href="{% url 'employees-list' %}">返回列表</a>
+{% endblock %}

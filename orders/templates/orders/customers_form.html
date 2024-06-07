@@ -1,0 +1,13 @@
+{% extends "orders/base_generic.html" %}
+
+{% block content %}
+  <h1>{% if form.instance.pk %}編輯{% else %}新增{% endif %} 顧客</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">儲存</button>
+  </form>
+  <a href="{% url 'customers-list' %}">取消</a>
+{% endblock %}
+
+

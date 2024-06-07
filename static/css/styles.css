@@ -1,0 +1,83 @@
+.center {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+    text-align: center;
+}
+
+.container {
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #111;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.sidebar-li {
+    display: block;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #818181;
+}
+
+.sidebar-li:hover {
+    color: #000000;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    margin-bottom: 15px;
+    /* Adjust this value to increase/decrease spacing */
+}
+
+/* {% comment %} 表格 {% endcomment %} */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+.bg-light {
+    background-color: #f9f9f9;
+}
+
+.bg-gray {
+    background-color: #f1f1f1;
+}
+
+.fixed-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #818181;
+    /* 其他你想要的樣式，例如背景顏色、高度等 */
+}

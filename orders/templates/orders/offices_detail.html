@@ -1,0 +1,19 @@
+{% extends "orders/base_generic.html" %}
+
+{% block title %}Office Detail{% endblock %}
+
+{% block content %}
+  <h1>辦公室詳細資料</h1>
+  <p>辦公室代碼: {{ office.officecode }}</p>
+  <p>城市: {{ office.city }}</p>
+  <p>電話: {{ office.phone }}</p>
+  <p>地址1: {{ office.addressline1 }}</p>
+  <p>地址2: {{ office.addressline2 }}</p>
+  <p>州: {{ office.state }}</p>
+  <p>國家: {{ office.country }}</p>
+  <p>郵遞區號: {{ office.postalcode }}</p>
+  <p>區域: {{ office.territory }}</p>
+  <a href="{% url 'offices-update' office.pk %}">編輯</a>
+  <a href="{% url 'offices-delete' office.pk %}">刪除</a>
+  <a href="{% url 'offices-list' %}">返回列表</a>
+{% endblock %}

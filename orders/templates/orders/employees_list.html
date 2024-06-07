@@ -1,0 +1,44 @@
+{% extends "orders/base_generic.html" %}
+
+{% block title %}員工列表{% endblock %}
+
+{% block content %}
+<div class="center"><h1>員工列表</h1></div>
+<a href="{% url 'employees-create' %}"><i class="bi bi-person-add" style="font-size: 24px;"></i></a>
+
+  <table>
+    <thead>
+      <tr>
+        <th>員工編號</th>
+        <th>姓氏</th>
+        <th>名字</th>
+        <th>分機</th>
+        <th>電子郵件</th>
+        <th>辦公室代碼</th>
+        <th>匯報對象</th>
+        <th>職稱</th>
+        <th></th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      {% for employee in employees %}
+      <tr class="{% cycle 'bg-light' 'bg-gray' %}">
+        <td>{{ employee.employeenumber }}</td>
+        <td>{{ employee.lastname }}</td>
+        <td>{{ employee.firstname }}</td>
+        <td>{{ employee.extension }}</td>
+        <td>{{ employee.email }}</td>
+        <td>{{ employee.officecode }}</td>
+        <td>{{ employee.reportsto }}</td>
+        <td>{{ employee.jobtitle }}</td>
+        <td>
+          <a href="{% url 'employees-detail' employee.pk %}">查看詳細</a> |
+          <a href="{% url 'employees-update' employee.pk %}">編輯</a> |
+          <a href="{% url 'employees-delete' employee.pk %}">刪除</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

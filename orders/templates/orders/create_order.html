@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Order</title>
+    <style>
+        .form-row {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Create Order</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ order_form.as_p }}
+        <h3>Order Details</h3>
+        <div id="formset">
+            order_detail_formset: {{ formset.management_form }}
+            {{ formset.management_form }}
+            {% comment %} {% for form in formset %}
+                <div class="form-row">
+                    {{ form.as_p }}
+                    <button type="button" class="remove-form">Remove</button>
+                </div>
+            {% endfor %} {% endcomment %}
+        </div>
+        <button type="button" id="add-form">Add another product</button>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let formCount = {{ formset.total_form_count }};
+            const formsetDiv = document.getElementById('formset');
+            const addFormButton = document.getElementById('add-form');
+            const emptyForm = '{{ formset.empty_form.as_p|escapejs }}';
+        
+            addFormButton.addEventListener('click', function() {
+                const newFormDiv = document.createElement('div');
+                newFormDiv.classList.add('form-row');
+                newFormDiv.innerHTML = emptyForm.replace(/__prefix__/g, formCount);
+                const removeButton = document.createElement('button');
+                removeButton.type = 'button';
+                removeButton.classList.add('remove-form');
+                removeButton.innerText = 'Remove';
+                newFormDiv.appendChild(removeButton);
+                formsetDiv.appendChild(newFormDiv);
+                formCount++;
+        
+                removeButton.addEventListener('click', function() {
+                    newFormDiv.remove();
+                });
+            });
+        
+            document.querySelectorAll('.remove-form').forEach(button => {
+                button.addEventListener('click', function() {
+                    button.parentElement.remove();
+                });
+            });
+        });
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+{% extends "orders/base_generic.html" %}
+
+{% block title %}辦公室列表{% endblock %}
+
+{% block content %}
+<div class="center"><h1>辦公室列表</h1></div>
+<a href="{% url 'offices-create' %}"><i class="bi bi-person-add" style="font-size: 24px;"></i></a>
+
+  <table>
+    <thead>
+      <tr>
+        <th>辦公室代碼</th>
+        <th>城市</th>
+        <th>電話</th>
+        <th>地址1</th>
+        <th>地址2</th>
+        <th>州</th>
+        <th>國家</th>
+        <th>郵遞區號</th>
+        <th>區域</th>
+        <th></th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      {% for office in offices %}
+      <tr class="{% cycle 'bg-light' 'bg-gray' %}">
+        <td>{{ office.officecode }}</td>
+        <td>{{ office.city }}</td>
+        <td>{{ office.phone }}</td>
+        <td>{{ office.addressline1 }}</td>
+        <td>{{ office.addressline2 }}</td>
+        <td>{{ office.state }}</td>
+        <td>{{ office.country }}</td>
+        <td>{{ office.postalcode }}</td>
+        <td>{{ office.territory }}</td>
+        <td>
+          <a href="{% url 'offices-detail' office.pk %}">查看詳細</a> |
+          <a href="{% url 'offices-update' office.pk %}">編輯</a> |
+          <a href="{% url 'offices-delete' office.pk %}">刪除</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

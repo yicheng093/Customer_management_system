@@ -1,0 +1,12 @@
+{% extends "orders/base_generic.html" %}
+
+{% block title %}Employee Form{% endblock %}
+
+{% block content %}
+  <h1>Employee Form</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">確定</button>
+  </form>
+{% endblock %}
