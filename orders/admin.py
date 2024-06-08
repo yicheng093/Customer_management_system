@@ -22,12 +22,10 @@ class OfficesAdmin(admin.ModelAdmin):
     list_filter = ('country', 'territory')
     ordering = ('officecode',)
 
+
 @admin.register(Orderdetails)
-class OrderdetailsAdmin(admin.ModelAdmin):
+class OrderDetailsAdmin(admin.ModelAdmin):
     list_display = ('ordernumber', 'productcode', 'quantityordered', 'priceeach', 'orderlinenumber')
-    search_fields = ('ordernumber', 'productcode')
-    list_filter = ('ordernumber', 'productcode')
-    ordering = ('ordernumber',)
     
 
 @admin.register(Orders)

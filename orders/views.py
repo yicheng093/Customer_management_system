@@ -167,8 +167,9 @@ class IndexView(TemplateView):
 
 # 表單
 
+from orders.forms import OrderDetailFormSet
 def create_order(request):
-    OrderDetailFormSet = modelformset_factory(Orderdetails, form=OrderDetailForm, extra=1)
+    # OrderDetailFormSet = modelformset_factory(Orderdetails, form=OrderDetailForm, extra=1)
     
     if request.method == 'POST':
         order_form = OrderForm(request.POST)
@@ -185,12 +186,43 @@ def create_order(request):
             return redirect('order_success')
     else:
         order_form = OrderForm()
-        order_detail_formset = OrderDetailFormSet(queryset=Orderdetails.objects.none())
+        order_detail_formset = OrderDetailFormSet(instance=order_form.instance)
+        # order_detail_formset = OrderDetailFormSet(queryset=Orderdetails.objects.none())
     
-    return render(request, 'orders/create_order.html', {
+    context = {
+        "hello": "Hello, World!",
         'order_form': order_form,
         'order_detail_formset': order_detail_formset,
-    })
+    }
+
+    return render(request, 'orders/create_order.html', context)
+
+
+class create_order_test(CreateView):
+    model = Orders
+    template_name = 'orders/create_order.html'
+    form_class = OrderForm
+    success_url = reverse_lazy('order_success')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['formset'] = OrderDetailFormSet()        
+        context["order_form"] = OrderForm()
+        context["order_detail_form"] = OrderDetailForm()
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        print("hello")
+        formset = context['formset']
+        if formset.is_valid():
+            print("world")
+            self.object = form.save()
+            formset.instance = self.object
+            formset.save()
+            return super().form_valid(form)
+        else:
+            return self.render_to_response(self.get_context_data(form=form))
 
 def order_success(request):
     return render(request, 'orders/order_success.html')

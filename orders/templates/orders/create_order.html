@@ -10,20 +10,42 @@
 </head>
 <body>
     <h2>Create Order</h2>
+    {{ hello }}
     <form method="post">
         {% csrf_token %}
         {{ order_form.as_p }}
         <h3>Order Details</h3>
         <div id="formset">
-            order_detail_formset: {{ formset.management_form }}
-            {{ formset.management_form }}
-            {% comment %} {% for form in formset %}
-                <div class="form-row">
-                    {{ form.as_p }}
-                    <button type="button" class="remove-form">Remove</button>
-                </div>
-            {% endfor %} {% endcomment %}
+            {% comment %} `````````````````````````````````````````` {% endcomment %}
+            <table>
+                {% for form in formset.forms %}
+                    {% if forloop.first %}
+                        <thead>
+                        <tr>
+                            {% for field in form.visible_fields %}
+                                <th>{{ field.label|capfirst }}</th>
+                            {% endfor %}
+                        </tr>
+                        </thead>
+                    {% endif %}
+                    <tr class="{% cycle row1 row2 %} formset_row">
+                        {% for field in form.visible_fields %}
+                            <td>
+                                {# Include the hidden fields in the form #}
+                                {% if forloop.first %}
+                                    {% for hidden in form.hidden_fields %}
+                                        {{ hidden }}
+                                    {% endfor %}
+                                {% endif %}
+                                {{ field.errors.as_ul }}
+                                {{ field }}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
         </div>
+        {% comment %} `````````````````````````````````````````` {% endcomment %}
         <button type="button" id="add-form">Add another product</button>
         <button type="submit">Submit</button>
     </form>

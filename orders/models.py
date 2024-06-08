@@ -17,7 +17,7 @@ class Customers(models.Model):
     creditlimit = models.DecimalField(db_column='creditLimit', max_digits=10, decimal_places=2, blank=True, null=True,verbose_name="信用額度")  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        
         db_table = 'customers'
 
     def __str__(self) -> str:
@@ -35,7 +35,7 @@ class Employees(models.Model):
     jobtitle = models.CharField(db_column='jobTitle', max_length=50,verbose_name="職稱")  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        
         db_table = 'employees'
 
 
@@ -51,37 +51,27 @@ class Offices(models.Model):
     territory = models.CharField(max_length=10,verbose_name="區域")
 
     class Meta:
-        managed = False
+        
         db_table = 'offices'
-
-# 複合主鍵
-class OrderdetailsManager(models.Manager):
-    def get_by_natural_key(self, ordernumber, productcode):
-        return self.get(ordernumber=ordernumber, productcode=productcode)
 
 
 class Orderdetails(models.Model):
-    ordernumber = models.ForeignKey('Orders', models.DO_NOTHING, db_column='orderNumber', primary_key=True,verbose_name="訂單編號")  # Field name made lowercase. The composite primary key (orderNumber, productCode) found, that is not supported. The first column is selected.
+    ordernumber = models.ForeignKey('Orders', models.DO_NOTHING, db_column='orderNumber',verbose_name="訂單編號")  # Field name made lowercase. The composite primary key (orderNumber, productCode) found, that is not supported. The first column is selected.
     productcode = models.ForeignKey('Products', models.DO_NOTHING, db_column='productCode',verbose_name="產品代碼")  # Field name made lowercase.
     quantityordered = models.IntegerField(db_column='quantityOrdered',verbose_name="訂購數量")  # Field name made lowercase.
     priceeach = models.DecimalField(db_column='priceEach', max_digits=10, decimal_places=2,verbose_name="單價")  # Field name made lowercase.
     orderlinenumber = models.SmallIntegerField(db_column='orderLineNumber',verbose_name="訂單行號")  # Field name made lowercase.
 
-    objects = OrderdetailsManager()
     class Meta:
-        managed = False
-        db_table = 'orderdetails'
-        unique_together = (('ordernumber', 'productcode'),)
+        verbose_name = "OrderDetails"
+        verbose_name_plural = "OrderDetails"
 
-    def natural_key(self):
-        return (self.ordernumber, self.productcode)
-    
-    def save(self, *args, **kwargs):
-        if not self.id:
-            # Perform a custom check or action here if needed
-            pass
-        super(Orderdetails, self).save(*args, **kwargs)
-
+        constraints = [
+            models.UniqueConstraint(
+                fields=["ordernumber", "productcode"],
+                name="ordernumber_productcode",
+            ),
+        ]
 
 
 class Orders(models.Model):
@@ -94,11 +84,11 @@ class Orders(models.Model):
     customernumber = models.ForeignKey(Customers, models.DO_NOTHING, db_column='customerNumber',verbose_name="客戶編號")  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        
         db_table = 'orders'
 
-    # def __str__(self) -> str:
-    #     return f"{self.ordernumber} - {self.comments}"
+    def __str__(self) -> str:
+        return f"{self.ordernumber} - {self.comments}"
 
 
 class Payments(models.Model):
@@ -108,7 +98,7 @@ class Payments(models.Model):
     amount = models.DecimalField(max_digits=10, decimal_places=2,verbose_name="金額")
 
     class Meta:
-        managed = False
+        
         db_table = 'payments'
         unique_together = (('customernumber', 'checknumber'),)
 
@@ -120,7 +110,7 @@ class Productlines(models.Model):
     image = models.TextField(blank=True, null=True,verbose_name="圖片")
 
     class Meta:
-        managed = False
+        
         db_table = 'productlines'
 
 
@@ -136,7 +126,7 @@ class Products(models.Model):
     msrp = models.DecimalField(db_column='MSRP', max_digits=10, decimal_places=2,verbose_name="建議零售價")  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        
         db_table = 'products'
 
     def __str__(self) -> str:

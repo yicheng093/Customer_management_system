@@ -30,7 +30,22 @@ class OrderForm(forms.ModelForm):
         model = Orders
         fields = ['customername', 'requireddate', 'status', 'comments']
 
+class OrderForm(forms.ModelForm):
+
+    class Meta:
+        model = Orders
+        fields = ['customername', 'requireddate', 'status', 'comments']
+
+
+class OrderDetailForm(forms.ModelForm):
+
+    class Meta:
+        model = Orderdetails
+        fields = ['productname', 'quantityordered']
+
+
 OrderDetailFormSet = inlineformset_factory(
-    Orders, Orderdetails, form=OrderDetailForm,
-    fields=['productname', 'quantityordered'], extra=3, can_delete=True
-)
+    Orders, 
+    Orderdetails, 
+    form=OrderDetailForm, 
+    extra=3, can_delete=False)

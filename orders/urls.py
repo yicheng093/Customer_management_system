@@ -47,7 +47,7 @@ urlpatterns = [
     path('offices/<int:pk>/update/', OfficesUpdateView.as_view(), name='offices-update'),
     path('offices/<int:pk>/delete/', OfficesDeleteView.as_view(), name='offices-delete'),
 
-    path('create_order/', views.create_order, name='create_order'),
+    path('create_order/', views.create_order_test.as_view(), name='create_order'),
     path('order_success/', views.order_success, name='order_success'),
 
     path('login/', views.login_view, name='login'),

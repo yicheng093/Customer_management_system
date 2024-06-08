@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-)pb)k)c#vk!^tw_4$wy^j)bb6u#5f38_mjqgadot!hjfg%9zn@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 
@@ -80,24 +80,24 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-# 資料庫設定
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'classicmodels',
-        'USER': 'root',
-        'PASSWORD': 'ntub123',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# # 資料庫設定
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'classicmodels',
+#         'USER': 'root',
+#         'PASSWORD': 'ntub123',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
 
 
 # Password validation
